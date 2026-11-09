@@ -8,9 +8,14 @@ public final class PlayerFactory {
     }
 
     public static Player create(String nickname, LongSupplier nextId) {
-        if (nickname == null || nickname.isBlank()) {
-            throw new IllegalArgumentException("Nickname is required");
+            return new Player(nextId.getAsLong(), normalizeNickname(nickname), 0);
         }
-        return new Player(nextId.getAsLong(), nickname.trim(), 0);
+
+        public static String normalizeNickname(String nickname) {
+            if (nickname == null || nickname.isBlank()) {
+                throw new IllegalArgumentException("Nickname is required");
+            }
+            return nickname.trim();
+        }
     }
-}
+
